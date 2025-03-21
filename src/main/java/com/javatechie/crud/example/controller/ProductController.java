@@ -23,6 +23,11 @@ public class ProductController {
         return service.saveProducts(products);
     }
 
+    @GetMapping("/products/search")
+    public List<Product> searchProducts(@RequestParam String keyword) {
+        return service.searchProducts(keyword);
+    }
+
     @GetMapping("/products")
     public List<Product> findAllProducts() {
         return service.getProducts();

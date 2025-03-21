@@ -20,6 +20,10 @@ public class ProductService {
         return repository.saveAll(products);
     }
 
+    public List<Product> searchProducts(String keyword) {
+        return repository.findByNameContainingIgnoreCase(keyword);
+    }
+
     public List<Product> getProducts() {
         return repository.findAll();
     }
