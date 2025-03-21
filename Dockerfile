@@ -30,10 +30,10 @@ COPY --from=builder /app/target/spring-boot-crud-example-2-0.0.1-SNAPSHOT.jar ap
 
 # Healthcheck (Kubernetes can also manage readiness/liveness probes)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8081/actuator/health || exit 1
 
 # Expose application port
-EXPOSE 8080
+EXPOSE 8081
 
 # Default command
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
