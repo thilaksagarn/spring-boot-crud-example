@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class ProductService {
+
     @Autowired
     private ProductRepository repository;
 
@@ -22,6 +23,18 @@ public class ProductService {
 
     public List<Product> searchProducts(String keyword) {
         return repository.findByNameContainingIgnoreCase(keyword);
+    }
+
+    // NEW: Advanced search with filters and default fallbacks
+    public List<Product> advancedSearchProducts(String name, String category, Double minPrice, Double maxPrice) {
+        if (name == null) {
+            name = "";  // matches all names
+        }
+        if (category == null) {
+            category = "";  // matches all categories
+        }
+        return repository.findByNameContainingIgnoreCaseAndCategoryContainingIgnoreCaseAndPriceBetween(
+                name,category, minPrice, maxPrice);
     }
 
     public List<Product> getProducts() {
@@ -48,6 +61,4 @@ public class ProductService {
         existingProduct.setPrice(product.getPrice());
         return repository.save(existingProduct);
     }
-
-
 }
