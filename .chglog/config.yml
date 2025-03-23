@@ -1,0 +1,47 @@
+template: CHANGELOG.tpl.md
+
+info:
+  title: Changelog
+  repository_url: https://github.com/thilaksagarn/spring-boot-crud-example
+
+options:
+  commits:
+    filters:
+      Type:
+        - feat
+        - fix
+        - chore
+        - docs
+        - style
+        - refactor
+        - perf
+        - test
+  commit_groups:
+    title_maps:
+      feat: Features
+      fix: Bug Fixes
+      chore: Chores
+      docs: Documentation
+      style: Styles
+      refactor: Code Refactoring
+      perf: Performance Improvements
+      test: Tests
+  header:
+    pattern: "^([a-z]+)(?:\\((.+)\\))?: (.+)$"
+    pattern_maps:
+      - Type
+      - Scope
+      - Subject
+  issues:
+    prefix:
+      - "#"
+  refs:
+    actions:
+      - Closes
+      - Fixes
+  merges:
+    pattern: "^Merge pull request #([0-9]+) from (.+)$"
+    pattern_maps:
+      - ID
+      - Source
+
