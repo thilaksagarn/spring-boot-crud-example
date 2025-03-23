@@ -1,0 +1,29 @@
+name: Auto Changelog and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup git-chglog
+        run: |
+          curl -sSL https://github.com/git-chglog/git-chglog/releases/download/v0.15.4/git-chglog_0.15.4_linux_amd64.tar.gz | tar -xz
+          sudo mv git-chglog /usr/local/bin/
+
+      - name: Generate Changelog
+        run: git-chglog -o CHANGELOG.md
+
+      - name: Commit and Push
+        run: |
+          git config --global user.email "thilaksagarn07@gmail.com"
+          git config --global user.name "thilaksagarn"
+          git add CHANGELOG.md
+          git commit -m "docs: automated changelog for release"
+          git push origin HEAD:$(echo $GITHUB_REF | sed 's/refs\/tags\///')
